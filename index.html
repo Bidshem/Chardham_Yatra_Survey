@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Char Dham Ropeway — Service-Provider Survey</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-mark">⛰</span>
+        <div>
+          <div class="brand-title">Char Dham Ropeway Survey</div>
+          <div class="brand-sub">Service-Provider Livelihood Assessment</div>
+        </div>
+      </div>
+      <nav class="topnav">
+        <a class="active" href="index.html">Survey</a>
+        <a href="dashboard.html">Dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Progress / stepper -->
+    <div id="stepper" class="stepper"></div>
+    <div class="progress-track"><div id="progressBar" class="progress-fill"></div></div>
+
+    <form id="surveyForm" autocomplete="off" novalidate>
+      <section class="card">
+        <div id="moduleHeader" class="module-header"></div>
+        <div id="questions" class="questions"></div>
+
+        <div id="formError" class="form-error" hidden></div>
+
+        <div class="nav-row">
+          <button type="button" id="prevBtn" class="btn btn-ghost">← Back</button>
+          <div class="nav-spacer"></div>
+          <button type="button" id="saveDraftBtn" class="btn btn-ghost">Save draft</button>
+          <button type="button" id="nextBtn" class="btn btn-primary">Next →</button>
+          <button type="button" id="submitBtn" class="btn btn-success" hidden>Submit response</button>
+        </div>
+      </section>
+    </form>
+
+    <!-- Thank-you / completion screen -->
+    <section id="thankYou" class="card thanks" hidden>
+      <div class="thanks-mark">✓</div>
+      <h2>Response recorded</h2>
+      <p id="thanksMsg">Thank you. The response has been saved locally on this device.</p>
+      <div class="nav-row center">
+        <button type="button" id="newRespBtn" class="btn btn-primary">Start a new response</button>
+        <a class="btn btn-ghost" href="dashboard.html">View dashboard</a>
+      </div>
+    </section>
+
+    <p class="footnote">
+      Your answers are confidential and used only in aggregate. A copy is also kept on this
+      device as a backup.
+    </p>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="survey-schema.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // Register the offline service worker (https/Pages only; skipped on file://).
+    if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("sw.js").catch(function () {});
+      });
+    }
+  </script>
+</body>
+</html>

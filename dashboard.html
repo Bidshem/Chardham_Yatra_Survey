@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Char Dham Ropeway Survey</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-mark">⛰</span>
+        <div>
+          <div class="brand-title">Char Dham Ropeway Survey</div>
+          <div class="brand-sub">Response Dashboard</div>
+        </div>
+      </div>
+      <nav class="topnav">
+        <a href="index.html">Survey</a>
+        <a class="active" href="dashboard.html">Dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap" style="max-width:1100px">
+    <!-- summary stats -->
+    <div id="stats" class="dash-grid"></div>
+
+    <!-- charts -->
+    <div id="charts" class="chart-grid">
+      <div class="chart-card"><h3>Respondents by path</h3><canvas id="chartPath"></canvas></div>
+      <div class="chart-card"><h3>Respondent category</h3><canvas id="chartCategory"></canvas></div>
+      <div class="chart-card"><h3>Support vs oppose (9.5)</h3><canvas id="chartSupport"></canvas></div>
+      <div class="chart-card"><h3>Expected income effect (10.2)</h3><canvas id="chartIncome"></canvas></div>
+      <div class="chart-card"><h3>Survey location (0.4)</h3><canvas id="chartLocation"></canvas></div>
+      <div class="chart-card"><h3>Willing to reskill (11.6)</h3><canvas id="chartReskill"></canvas></div>
+    </div>
+
+    <!-- toolbar -->
+    <div class="toolbar">
+      <strong>Responses</strong>
+      <div class="nav-spacer"></div>
+      <button id="syncNow" class="btn btn-ghost" hidden>Upload pending to Sheet</button>
+      <button id="exportCsv" class="btn btn-ghost">Export CSV</button>
+      <button id="exportXlsx" class="btn btn-primary">Export Excel</button>
+      <button id="clearAll" class="btn btn-ghost" style="color:#c0392b">Clear all</button>
+    </div>
+
+    <div class="table-wrap">
+      <table class="resp" id="respTable"></table>
+    </div>
+
+    <p class="footnote">Data is read from this browser's localStorage. Export regularly to back up — clearing browser data erases responses.</p>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="survey-schema.js"></script>
+  <script src="dashboard.js"></script>
+  <script>
+    if ("serviceWorker" in navigator && location.protocol.indexOf("http") === 0) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("sw.js").catch(function () {});
+      });
+    }
+  </script>
+</body>
+</html>
